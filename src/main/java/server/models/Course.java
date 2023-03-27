@@ -4,6 +4,7 @@ import java.io.Serializable;
 
 public class Course implements Serializable {
 
+
     private String name;
     private String code;
     private String session;
