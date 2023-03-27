@@ -1,8 +1,18 @@
 package server;
 
+/**
+ * Lance le serveur.
+ */
 public class ServerLauncher {
+    /**
+     * Port utilisé pour le serveur
+     */
     public final static int PORT = 1337;
-
+    /**
+     * Démarre le serveur, exécute les commandes du client.
+     *
+     * @param args jamais utilisé
+     */
     public static void main(String[] args) {
         Server server;
         try {
