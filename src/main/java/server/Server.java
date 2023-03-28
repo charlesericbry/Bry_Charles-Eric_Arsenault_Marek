@@ -157,8 +157,7 @@ public class Server {
                 }
             }
             reader.close();
-            ObjectOutputStream out = new ObjectOutputStream(server.getOutputStream());
-            out.writeObject(liste_cours);
+        this.objectOutputStream.writeObject(liste_cours);
 
         }catch (ClosedByInterruptException e){
             System.out.println("Interruption lors de l'écriture ou la lecture");
@@ -175,8 +174,7 @@ public class Server {
      */
     public void handleRegistration() {
         try{
-            InputStream inputStream = server.getInputStream();
-            ObjectInputStream is = new ObjectInputStream(inputStream);
+            ObjectInputStream is = this.objectInputStream;
             RegistrationForm r = (RegistrationForm) is.readObject();
 
             FileWriter fw = new FileWriter("inscription.txt");
