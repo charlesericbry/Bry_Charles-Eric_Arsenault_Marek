@@ -102,9 +102,7 @@ public class Server {
      * @return Une liste pairée entre commande (clé) et son argument (valeur)
      */
     public Pair<String, String> processCommandLine(String line) {
-        System.out.println(line);
         String[] parts = line.split(" ");
-        System.out.println(parts);
         String cmd = parts[0];
         String args = String.join(" ", Arrays.asList(parts).subList(1, parts.length));
         return new Pair<>(cmd, args);
@@ -145,7 +143,7 @@ public class Server {
      */
     public void handleLoadCourses(String arg) {
         try{
-            FileReader courseReader = new FileReader("cours.txt");
+            FileReader courseReader = new FileReader("src/main/java/server/data/cours.txt");
             BufferedReader reader = new BufferedReader(courseReader);
             String line;
             ArrayList<Course> liste_cours  = new ArrayList<Course>();
@@ -155,20 +153,25 @@ public class Server {
                 String nom_du_cours=parts[1];
                 String session=parts[2];
                 if(session.equals(arg)){
+                    System.out.println("penis");
                     Course cours = new Course(nom_du_cours,code_du_cours,session);
                     liste_cours.add(cours);
+
                     //this.objectOutputStream.writeObject(cours);
                 }
             }
             reader.close();
-            this.objectOutputStream.writeObject(liste_cours);
             System.out.println(liste_cours);
+            this.objectOutputStream.writeObject(liste_cours);
             this.objectOutputStream.flush();
 
         }catch (ClosedByInterruptException e){
             System.out.println("Interruption lors de l'écriture ou la lecture");
 
+
         }catch(Exception e){
+            System.out.println("très prout");
+            e.printStackTrace();
         }
 
     }
