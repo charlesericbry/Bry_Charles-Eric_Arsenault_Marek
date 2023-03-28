@@ -70,7 +70,6 @@ public class Server {
                 objectInputStream = new ObjectInputStream(client.getInputStream());
                 objectOutputStream = new ObjectOutputStream(client.getOutputStream());
                 listen();
-
                 disconnect();
                 System.out.println("Client déconnecté!");
             } catch (Exception e) {
@@ -93,7 +92,7 @@ public class Server {
             String cmd = parts.getKey();
             String arg = parts.getValue();
             this.alertHandlers(cmd, arg);
-            //System.out.println(line);
+            System.out.println(line);
         }
     }
 
@@ -164,7 +163,7 @@ public class Server {
             reader.close();
             System.out.println(liste_cours);
             this.objectOutputStream.writeObject(liste_cours);
-            //this.objectOutputStream.flush();
+            this.objectOutputStream.flush();
             listen();
 
         }catch (ClosedByInterruptException e){

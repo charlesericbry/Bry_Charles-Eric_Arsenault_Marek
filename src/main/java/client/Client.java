@@ -33,6 +33,7 @@ public class Client {
         while (true) {
             try {
                 objectOutputStream = new ObjectOutputStream(client.getOutputStream());
+                objectInputStream = new ObjectInputStream(client.getInputStream());
                 commander();
                 break;
             } catch (Exception e) {
@@ -94,8 +95,7 @@ public class Client {
 
 
     public void coursOfferts() throws IOException, ClassNotFoundException {
-
-        objectInputStream = new ObjectInputStream(client.getInputStream());
+        System.out.println("hello");
         ArrayList<Course> liste_cours =(ArrayList<Course>) this.objectInputStream.readObject();
         for(int i=0; i<liste_cours.size(); i++){
             System.out.println((i+1)+". "+liste_cours.get(i).getCode()+"\t"+liste_cours.get(i).getName());
@@ -115,6 +115,17 @@ public class Client {
     }
 
     public void inscription(){
+        System.out.print("Veuillez saisir votre prénom: ");
+
+        System.out.print("Veuillez saisir votre nom: ");
+
+        System.out.print("Veuillez saisir votre email: ");
+
+        System.out.print("Veuillez saisir votre matricule: ");
+
+        System.out.print("Veuillez saisir le code du cours: ");
+        
+
 
     }
 }
