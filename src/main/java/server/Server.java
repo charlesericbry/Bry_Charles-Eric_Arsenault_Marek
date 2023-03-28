@@ -87,7 +87,6 @@ public class Server {
     public void listen() throws IOException, ClassNotFoundException {
         String line;
         if ((line = this.objectInputStream.readObject().toString()) != null) {
-            System.out.println("prout");
             Pair<String, String> parts = processCommandLine(line);
             String cmd = parts.getKey();
             String arg = parts.getValue();
@@ -103,7 +102,9 @@ public class Server {
      * @return Une liste pairée entre commande (clé) et son argument (valeur)
      */
     public Pair<String, String> processCommandLine(String line) {
+        System.out.println(line);
         String[] parts = line.split(" ");
+        System.out.println(parts);
         String cmd = parts[0];
         String args = String.join(" ", Arrays.asList(parts).subList(1, parts.length));
         return new Pair<>(cmd, args);
@@ -156,12 +157,13 @@ public class Server {
                 if(session.equals(arg)){
                     Course cours = new Course(nom_du_cours,code_du_cours,session);
                     liste_cours.add(cours);
-                    this.objectOutputStream.writeObject(cours);
+                    //this.objectOutputStream.writeObject(cours);
                 }
             }
             reader.close();
+            this.objectOutputStream.writeObject(liste_cours);
+            System.out.println(liste_cours);
             this.objectOutputStream.flush();
-        //this.objectOutputStream.writeObject(liste_cours);
 
         }catch (ClosedByInterruptException e){
             System.out.println("Interruption lors de l'écriture ou la lecture");

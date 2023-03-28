@@ -30,8 +30,6 @@ public class Client {
         System.out.println(message);
         while (true) {
             try {
-
-
                 objectOutputStream = new ObjectOutputStream(client.getOutputStream());
                 commander();
                 break;
@@ -84,12 +82,10 @@ public class Client {
     public void coursOfferts() throws IOException, ClassNotFoundException {
         System.out.println("Les cours offerts pendant la session d'automne sont:");
         objectInputStream = new ObjectInputStream(client.getInputStream());
-        lireArrayList(objectInputStream);
-        //for (int i = 0; i <= list.size(); i++ )
+        //lireArrayList(objectInputStream);
+        //this.objectInputStream.readObject();
         System.out.println("test");
-
-
-        objectInputStream.close();
+        this.objectInputStream.close();
     }
 
 
