@@ -121,7 +121,7 @@ public class Server {
     /**
      * Gère les commandes d'enregistrement et de chargement
      *
-     * @param cmd Type de commande reçu 'Inscrire' ou 'Charger'
+     * @param cmd Type de commande reçu 'Inscrire' ou 'Commande'
      * @param arg Argument de la commande, information supplémentaire sur la personne qui s'inscrit, ou bien
      *           sur les cours etc...
      */

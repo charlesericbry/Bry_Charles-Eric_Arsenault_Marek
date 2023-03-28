@@ -30,20 +30,25 @@ public class Main {
 
     public static void charger(int num) {
             try {
+                Commande charger;
                 switch (num) {
 
                     case 1:
-                        Charger charger=new Charger("Automne");
+                        charger = new Commande("CHARGER","Automne");
                         break;
                     case 2:
-                        Charger charger=new Charger("Hiver");
+                        charger = new Commande("CHARGER","Hiver");
                         break;
                     case 3:
-                        Charger charger=new Charger("Été");
+                        charger = new Commande("CHARGER","Été");
                         break;
                     default:
                         System.out.println("Commande inconnue. Veuillez entrer un nombre entre 1 et 3. Merci!");
+                        charger = new Commande("CHARGER","Été");
+
                 }
+                System.out.println(charger.toString());
+
             } catch (Exception e) {
                 System.out.println("Commande inconnue. Veuillez entrer un nombre entre 1 et 3. Merci!");
                 System.out.print(">Choix:");
