@@ -153,7 +153,6 @@ public class Server {
                 String nom_du_cours=parts[1];
                 String session=parts[2];
                 if(session.equals(arg)){
-                    System.out.println("penis");
                     Course cours = new Course(nom_du_cours,code_du_cours,session);
                     liste_cours.add(cours);
 

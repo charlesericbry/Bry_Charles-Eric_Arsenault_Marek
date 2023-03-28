@@ -1,5 +1,7 @@
 package client;
 
+import server.models.Course;
+
 import java.io.EOFException;
 import java.io.IOException;
 import java.io.ObjectInputStream;
@@ -67,44 +69,28 @@ public class Client {
                     charger = new Commande("CHARGER", "Hiver");
                     break;
                 case "3":
-                    charger = new Commande("CHARGER", "Été");
+                    charger = new Commande("CHARGER", "Ete");
                     break;
                 default:
                     throw new IllegalArgumentException("Veuillez entrer un nombre entre 1 et 3. Merci.");
-                    //charger = null;
+
             }
-            System.out.println(charger);
+            System.out.println("Les cours offerts pendant la session d'"+charger.getSession()+" sont:");
             this.objectOutputStream.writeObject(charger);
             this.objectOutputStream.flush();
         }
 
 
     public void coursOfferts() throws IOException, ClassNotFoundException {
-        System.out.println("Les cours offerts pendant la session d'automne sont:");
+
         objectInputStream = new ObjectInputStream(client.getInputStream());
-        //lireArrayList(objectInputStream);
-        //this.objectInputStream.readObject();
-        System.out.println("test");
-        this.objectInputStream.close();
-    }
+        ArrayList<Course> liste_cours =(ArrayList<Course>) this.objectInputStream.readObject();
+        for(int i=0; i<liste_cours.size(); i++){
+            System.out.println(liste_cours.get(i).getSession());
 
-
-    public void lireArrayList(ObjectInputStream in) throws IOException, ClassNotFoundException {
-        ArrayList<String> list = new ArrayList<String>();
-        try {
-            while (true) {
-                String obj = (String) in.readObject().toString();
-                list.add(obj);
-                if (obj.equals(null)){
-                    break;
-                }
-
-            }
-            System.out.println(list);
-
-        } catch (EOFException e) {
-            // La fin du flux a été atteinte, il n'y a plus d'objets à lire
         }
+
+        //this.objectInputStream.close();
     }
 }
 
