@@ -33,7 +33,7 @@ public class Server {
      * Initialise le serveur en fonction du port d'entrée.
      *
      * @param port port de connection du serveur,
-     * @throws IOException  IOException si une erreur survient lors de la création de la socket serveur
+     * @throws IOException  IOException si une erreur survient lors de la création du socket serveur
      */
     public Server(int port) throws IOException {
         this.server = new ServerSocket(port, 1);

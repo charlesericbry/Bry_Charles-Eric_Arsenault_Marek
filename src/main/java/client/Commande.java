@@ -16,11 +16,15 @@ public class Commande implements Serializable {
     }
 
     public void setArg(String arg){
-        
+        this.arg = arg;
     }
 
     public String getSession(){
         return this.session;
+    }
+
+    public String getArg(){
+        return this.arg;
     }
 
 
