@@ -69,8 +69,6 @@ public class Server {
                 System.out.println("Connecté au client: " + client);
                 objectInputStream = new ObjectInputStream(client.getInputStream());
                 objectOutputStream = new ObjectOutputStream(client.getOutputStream());
-                String line = this.objectInputStream.readObject().toString();
-                System.out.println("prout");
                 listen();
                 disconnect();
                 System.out.println("Client déconnecté!");
@@ -88,9 +86,8 @@ public class Server {
      */
     public void listen() throws IOException, ClassNotFoundException {
         String line;
-        System.out.println(this.objectInputStream.readObject());
         if ((line = this.objectInputStream.readObject().toString()) != null) {
-            System.out.println(this.objectInputStream.readObject().toString());
+            System.out.println("prout");
             Pair<String, String> parts = processCommandLine(line);
             String cmd = parts.getKey();
             String arg = parts.getValue();
@@ -159,10 +156,12 @@ public class Server {
                 if(session.equals(arg)){
                     Course cours = new Course(nom_du_cours,code_du_cours,session);
                     liste_cours.add(cours);
+                    this.objectOutputStream.writeObject(cours);
                 }
             }
             reader.close();
-        this.objectOutputStream.writeObject(liste_cours);
+            this.objectOutputStream.flush();
+        //this.objectOutputStream.writeObject(liste_cours);
 
         }catch (ClosedByInterruptException e){
             System.out.println("Interruption lors de l'écriture ou la lecture");

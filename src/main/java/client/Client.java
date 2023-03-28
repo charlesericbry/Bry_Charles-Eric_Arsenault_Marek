@@ -34,7 +34,9 @@ public class Client {
 
                 objectOutputStream = new ObjectOutputStream(client.getOutputStream());
                 commander();
+                break;
             } catch (Exception e) {
+                e.printStackTrace();
                 System.out.println("Raté plus");
             }
         }
@@ -45,11 +47,13 @@ public class Client {
             Scanner scanner = new Scanner(System.in);
             String num = scanner.nextLine();
             charger(num);
-            //coursOfferts();
+            coursOfferts();
             //int num2 = scanner.nextInt();
+            //objectOutputStream.close();
         }catch(IllegalArgumentException e) {
             System.out.println(e);
             commander();
+
          }
     }
 
@@ -80,24 +84,28 @@ public class Client {
     public void coursOfferts() throws IOException, ClassNotFoundException {
         System.out.println("Les cours offerts pendant la session d'automne sont:");
         objectInputStream = new ObjectInputStream(client.getInputStream());
-        //lireArrayList(objectInputStream);
+        lireArrayList(objectInputStream);
         //for (int i = 0; i <= list.size(); i++ )
         System.out.println("test");
-        String cours = (String) objectInputStream.readObject();
-        System.out.println(cours);
+
 
         objectInputStream.close();
     }
 
 
     public void lireArrayList(ObjectInputStream in) throws IOException, ClassNotFoundException {
-        ArrayList<Object> list = new ArrayList<Object>();
-
+        ArrayList<String> list = new ArrayList<String>();
         try {
             while (true) {
-                Object obj = in.readObject();
+                String obj = (String) in.readObject().toString();
                 list.add(obj);
+                if (obj.equals(null)){
+                    break;
+                }
+
             }
+            System.out.println(list);
+
         } catch (EOFException e) {
             // La fin du flux a été atteinte, il n'y a plus d'objets à lire
         }
