@@ -116,15 +116,22 @@ public class Client {
 
     public void inscription(){
         System.out.print("Veuillez saisir votre prénom: ");
-
+        Scanner scanner = new Scanner(System.in);
+        String prenom = scanner.nextLine();
+        System.out.print(prenom+"\n");
         System.out.print("Veuillez saisir votre nom: ");
-
+        String nom = scanner.nextLine();
+        System.out.print(nom+"\n");
         System.out.print("Veuillez saisir votre email: ");
-
+        String email = scanner.nextLine();
+        System.out.print(email+"\n");
         System.out.print("Veuillez saisir votre matricule: ");
-
+        String matricule = scanner.nextLine();
+        System.out.print(matricule+"\n");
         System.out.print("Veuillez saisir le code du cours: ");
-        
+        String code = scanner.nextLine();
+        System.out.print(code+"\n");
+
 
 
     }
