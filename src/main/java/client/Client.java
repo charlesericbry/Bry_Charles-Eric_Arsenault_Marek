@@ -14,7 +14,6 @@ public class Client {
     private ObjectInputStream objectInputStream;
     private ObjectOutputStream objectOutputStream;
     private Commande commande;
-
     private static String message="Veuillez choisir la session pour laquelle vous voulez consulter la liste de cours:\n 1. Automne\n 2. Hiver\n 3. Été\n>Choix:";
 
     public Client(int port) throws IOException {
@@ -72,7 +71,7 @@ public class Client {
                     throw new IllegalArgumentException("Veuillez entrer un nombre entre 1 et 3. Merci.");
                     //charger = null;
             }
-            System.out.println(charger.toString());
+            System.out.println(charger);
             this.objectOutputStream.writeObject(charger);
             this.objectOutputStream.flush();
         }

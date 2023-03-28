@@ -11,6 +11,7 @@ import java.nio.channels.ClosedByInterruptException;
 import java.util.ArrayList;
 import java.util.Arrays;
 
+
 /**
  * La classe server gère le serveur après son démarrage.
  */
@@ -68,6 +69,8 @@ public class Server {
                 System.out.println("Connecté au client: " + client);
                 objectInputStream = new ObjectInputStream(client.getInputStream());
                 objectOutputStream = new ObjectOutputStream(client.getOutputStream());
+                String line = this.objectInputStream.readObject().toString();
+                System.out.println("prout");
                 listen();
                 disconnect();
                 System.out.println("Client déconnecté!");
@@ -85,6 +88,7 @@ public class Server {
      */
     public void listen() throws IOException, ClassNotFoundException {
         String line;
+        System.out.println(this.objectInputStream.readObject());
         if ((line = this.objectInputStream.readObject().toString()) != null) {
             System.out.println(this.objectInputStream.readObject().toString());
             Pair<String, String> parts = processCommandLine(line);
