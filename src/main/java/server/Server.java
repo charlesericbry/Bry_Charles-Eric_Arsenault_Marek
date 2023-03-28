@@ -70,6 +70,7 @@ public class Server {
                 objectInputStream = new ObjectInputStream(client.getInputStream());
                 objectOutputStream = new ObjectOutputStream(client.getOutputStream());
                 listen();
+
                 disconnect();
                 System.out.println("Client déconnecté!");
             } catch (Exception e) {
@@ -87,10 +88,12 @@ public class Server {
     public void listen() throws IOException, ClassNotFoundException {
         String line;
         if ((line = this.objectInputStream.readObject().toString()) != null) {
+
             Pair<String, String> parts = processCommandLine(line);
             String cmd = parts.getKey();
             String arg = parts.getValue();
             this.alertHandlers(cmd, arg);
+            //System.out.println(line);
         }
     }
 
@@ -156,13 +159,13 @@ public class Server {
                     Course cours = new Course(nom_du_cours,code_du_cours,session);
                     liste_cours.add(cours);
 
-                    //this.objectOutputStream.writeObject(cours);
                 }
             }
             reader.close();
             System.out.println(liste_cours);
             this.objectOutputStream.writeObject(liste_cours);
-            this.objectOutputStream.flush();
+            //this.objectOutputStream.flush();
+            listen();
 
         }catch (ClosedByInterruptException e){
             System.out.println("Interruption lors de l'écriture ou la lecture");

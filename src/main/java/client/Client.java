@@ -42,27 +42,31 @@ public class Client {
         }
     }
 
-    public void commander() throws IOException, ClassNotFoundException{
+    public void commander() throws IOException, ClassNotFoundException {
+        System.out.println(message);
+        Scanner scanner = new Scanner(System.in);
+        String num = scanner.nextLine();
         try {
-            boolean Penis=False
-            System.out.println(message);
-            Scanner scanner = new Scanner(System.in);
-            String num = scanner.nextLine();
             charger(num);
             coursOfferts();
-            bool 
             System.out.println(">Choix:");
             System.out.println("1. Consulter les cours offerts pour une autre session");
             System.out.println("2. Inscription à un cours");
             System.out.println(">Choix:");
-            String num2 = scanner.nextLine();
-            choixProcedure();
             //objectOutputStream.close();
-        }catch(IllegalArgumentException e) {
+        } catch (IllegalArgumentException e) {
             System.out.println(e);
             commander();
 
-         }
+        }
+        String num2 = scanner.nextLine();
+
+        try {
+            choixProcedure(num2);
+        } catch (IllegalArgumentException e) {
+            System.out.println(e);
+
+        }
     }
 
     public void charger(String num) throws IOException,IllegalArgumentException {
@@ -95,14 +99,23 @@ public class Client {
         ArrayList<Course> liste_cours =(ArrayList<Course>) this.objectInputStream.readObject();
         for(int i=0; i<liste_cours.size(); i++){
             System.out.println((i+1)+". "+liste_cours.get(i).getCode()+"\t"+liste_cours.get(i).getName());
-
         }
 
         //this.objectInputStream.close();
     }
 
-    public void choixProcedure(){
-        
+    public void choixProcedure(String num) throws IOException, ClassNotFoundException {
+        if (num.equals("1")){
+            commander();
+        } else if (num.equals("2")) {
+            inscription();
+        }else{
+            throw new IllegalArgumentException("Veuillez entrer un nombre entre 1 et 2. Merci.");
+        }
+    }
+
+    public void inscription(){
+
     }
 }
 
