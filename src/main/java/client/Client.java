@@ -29,7 +29,7 @@ public class Client {
     public void run(){
         System.out.println("Connecté au serveur!");
         System.out.println("*** Bienvenue au portail d'inscription de cours de l'UDEM ***");
-        System.out.println(message);
+
         while (true) {
             try {
                 objectOutputStream = new ObjectOutputStream(client.getOutputStream());
@@ -44,11 +44,19 @@ public class Client {
 
     public void commander() throws IOException, ClassNotFoundException{
         try {
+            boolean Penis=False
+            System.out.println(message);
             Scanner scanner = new Scanner(System.in);
             String num = scanner.nextLine();
             charger(num);
             coursOfferts();
-            //int num2 = scanner.nextInt();
+            bool 
+            System.out.println(">Choix:");
+            System.out.println("1. Consulter les cours offerts pour une autre session");
+            System.out.println("2. Inscription à un cours");
+            System.out.println(">Choix:");
+            String num2 = scanner.nextLine();
+            choixProcedure();
             //objectOutputStream.close();
         }catch(IllegalArgumentException e) {
             System.out.println(e);
@@ -86,11 +94,15 @@ public class Client {
         objectInputStream = new ObjectInputStream(client.getInputStream());
         ArrayList<Course> liste_cours =(ArrayList<Course>) this.objectInputStream.readObject();
         for(int i=0; i<liste_cours.size(); i++){
-            System.out.println(liste_cours.get(i).getSession());
+            System.out.println((i+1)+". "+liste_cours.get(i).getCode()+"\t"+liste_cours.get(i).getName());
 
         }
 
         //this.objectInputStream.close();
+    }
+
+    public void choixProcedure(){
+        
     }
 }
 
