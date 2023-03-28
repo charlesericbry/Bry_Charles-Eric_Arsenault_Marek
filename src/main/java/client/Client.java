@@ -1,9 +1,11 @@
 package client;
 
+import java.io.EOFException;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Client {
@@ -45,7 +47,7 @@ public class Client {
         int num = scanner.nextInt();
         System.out.println(num);
         charger(num);
-        coursOfferts(num);
+        coursOfferts();
         int num2 = scanner.nextInt();
 
     }
@@ -76,13 +78,27 @@ public class Client {
         }
     }
 
-    public void coursOfferts(int num) throws IOException, ClassNotFoundException {
+    public void coursOfferts() throws IOException, ClassNotFoundException {
         System.out.println("Les cours offerts pendant la session d'automne sont:");
         objectInputStream = new ObjectInputStream(client.getInputStream());
-        String cours = (String) objectInputStream.readObject().toString();
+        System.out.println("test");
+        String cours = (String) objectInputStream.readObject();
         System.out.println(cours);
-        //String cours = (String) objectOutputStream.split("\t")readObject().toString();
+
         objectInputStream.close();
     }
 
+
+    public void lireArrayList(ObjectInputStream in) throws IOException, ClassNotFoundException {
+        ArrayList<Object> list = new ArrayList<Object>();
+
+        try {
+            while (true) {
+                Object obj = in.readObject();
+                list.add(obj);
+            }
+        } catch (EOFException e) {
+            // La fin du flux a été atteinte, il n'y a plus d'objets à lire
+        }
+    }
 }
