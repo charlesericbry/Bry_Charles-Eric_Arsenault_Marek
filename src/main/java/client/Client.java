@@ -42,45 +42,47 @@ public class Client {
     }
 
     public void commander() throws IOException, ClassNotFoundException{
-
-        Scanner scanner = new Scanner(System.in);
-        int num = scanner.nextInt();
-        System.out.println(num);
-        charger(num);
-        coursOfferts();
-        int num2 = scanner.nextInt();
-
+        try {
+            Scanner scanner = new Scanner(System.in);
+            String num = scanner.nextLine();
+            charger(num);
+            //coursOfferts();
+            //int num2 = scanner.nextInt();
+        }catch(IllegalArgumentException e) {
+            System.out.println(e);
+            commander();
+         }
     }
 
-    public void charger(int num) {
-        try {
+    public void charger(String num) throws IOException,IllegalArgumentException {
+
             Commande charger;
             switch (num) {
-                case 1:
-                    charger = new Commande("CHARGER","Automne");
+                case "1":
+                    charger = new Commande("CHARGER", "Automne");
+
                     break;
-                case 2:
-                    charger = new Commande("CHARGER","Hiver");
+                case "2":
+                    charger = new Commande("CHARGER", "Hiver");
                     break;
-                case 3:
-                    charger = new Commande("CHARGER","Été");
+                case "3":
+                    charger = new Commande("CHARGER", "Été");
                     break;
                 default:
-                    System.out.println("Commande inconnue. Veuillez entrer un nombre entre 1 et 3. Merci!");
-                    charger = null;
+                    throw new IllegalArgumentException("Veuillez entrer un nombre entre 1 et 3. Merci.");
+                    //charger = null;
             }
             System.out.println(charger.toString());
             this.objectOutputStream.writeObject(charger);
-        } catch (Exception e) {
-            e.printStackTrace();
-            System.out.println("Commande inconnue. Veuillez entrer un nombre entre 1 et 3. Merci!");
-            System.out.print(">Choix:");
+            this.objectOutputStream.flush();
         }
-    }
+
 
     public void coursOfferts() throws IOException, ClassNotFoundException {
         System.out.println("Les cours offerts pendant la session d'automne sont:");
         objectInputStream = new ObjectInputStream(client.getInputStream());
+        //lireArrayList(objectInputStream);
+        //for (int i = 0; i <= list.size(); i++ )
         System.out.println("test");
         String cours = (String) objectInputStream.readObject();
         System.out.println(cours);
@@ -102,3 +104,4 @@ public class Client {
         }
     }
 }
+

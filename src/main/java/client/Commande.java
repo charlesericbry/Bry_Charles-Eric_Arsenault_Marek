@@ -3,34 +3,34 @@ package client;
 import java.io.Serializable;
 
 public class Commande implements Serializable {
-    private String arg;
+    private String cmd;
     private String session;
 
     public Commande(String arg, String session){
         this.session=session;
-        this.arg=arg;
+        this.cmd =arg;
     }
 
     public void setSession(String session) {
         this.session = session;
     }
 
-    public void setArg(String arg){
-        this.arg = arg;
+    public void setCmd(String cmd){
+        this.cmd = cmd;
     }
 
     public String getSession(){
         return this.session;
     }
 
-    public String getArg(){
-        return this.arg;
+    public String getCmd(){
+        return this.cmd;
     }
 
 
     @Override
     public String toString(){
-        return this.arg+" "+this.session;
+        return this.cmd +" "+this.session;
     }
 
 

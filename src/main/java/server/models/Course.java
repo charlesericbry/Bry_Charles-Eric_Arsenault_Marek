@@ -12,10 +12,10 @@ public class Course implements Serializable {
     private String session;
 
     /**
-     * Construit un cour.
-     * @param name nom du cour en question
-     * @param code code du cour
-     * @param session session auquel le cour a lieu
+     * Construit un cours.
+     * @param name nom du cours en question
+     * @param code code du cours
+     * @param session session à laquelle le cours a lieu
      */
     public Course(String name, String code, String session) {
         this.name = name;
