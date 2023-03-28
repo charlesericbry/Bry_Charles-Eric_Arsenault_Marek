@@ -18,7 +18,7 @@ public class Main {
             while (true) {
                 try {
                     Scanner scanner = new Scanner(System.in);
-                    
+
                     int num = scanner.nextInt();
                     switch (num) {
 
@@ -35,8 +35,7 @@ public class Main {
                             System.out.println("Commande inconnue, veuillez recommencez");
                     }
 
-
-                    //System.out.println(">Choix:"+choixSession);
+                    
                 } catch (Exception e) {
                     System.out.println("Commande inconnue. Veuillez entrer un nombre entre 1 et 3. Merci!");
                     System.out.print(">Choix:");
