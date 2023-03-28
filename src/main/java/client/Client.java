@@ -30,8 +30,8 @@ public class Client {
         while (true) {
             try {
 
-                //objectInputStream = new ObjectInputStream(client.getInputStream());
-                //objectOutputStream = new ObjectOutputStream(client.getOutputStream());
+
+                objectOutputStream = new ObjectOutputStream(client.getOutputStream());
                 commander();
             } catch (Exception e) {
                 System.out.println("Raté plus");
@@ -39,12 +39,14 @@ public class Client {
         }
     }
 
-    public void commander(){
+    public void commander() throws IOException, ClassNotFoundException{
 
         Scanner scanner = new Scanner(System.in);
         int num = scanner.nextInt();
         System.out.println(num);
         charger(num);
+        coursOfferts(num);
+        int num2 = scanner.nextInt();
 
     }
 
@@ -68,9 +70,19 @@ public class Client {
             System.out.println(charger.toString());
             this.objectOutputStream.writeObject(charger);
         } catch (Exception e) {
+            e.printStackTrace();
             System.out.println("Commande inconnue. Veuillez entrer un nombre entre 1 et 3. Merci!");
             System.out.print(">Choix:");
         }
+    }
+
+    public void coursOfferts(int num) throws IOException, ClassNotFoundException {
+        System.out.println("Les cours offerts pendant la session d'automne sont:");
+        objectInputStream = new ObjectInputStream(client.getInputStream());
+        String cours = (String) objectInputStream.readObject().toString();
+        System.out.println(cours);
+        //String cours = (String) objectOutputStream.split("\t")readObject().toString();
+        objectInputStream.close();
     }
 
 }
