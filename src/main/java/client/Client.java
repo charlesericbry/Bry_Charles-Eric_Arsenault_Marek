@@ -1,6 +1,7 @@
 package client;
 
 import server.models.Course;
+import server.models.RegistrationForm;
 
 import java.io.EOFException;
 import java.io.IOException;
@@ -17,7 +18,9 @@ public class Client {
     private ObjectOutputStream objectOutputStream;
     private Commande commande;
     private static String message="Veuillez choisir la session pour laquelle vous voulez consulter la liste de cours:\n 1. Automne\n 2. Hiver\n 3. Été\n>Choix:";
-
+    private Commande charger;
+    private Commande inscrire;
+    private ArrayList<Course> liste_cours;
     public Client(int port) throws IOException {
         this.client = new Socket("127.0.0.1", port);
     }
@@ -37,8 +40,9 @@ public class Client {
                 commander();
                 break;
             } catch (Exception e) {
+                System.out.println("Erreur lors de la procédure.");
                 e.printStackTrace();
-                System.out.println("Raté plus");
+                break;
             }
         }
     }
@@ -70,38 +74,39 @@ public class Client {
         }
     }
 
-    public void charger(String num) throws IOException,IllegalArgumentException {
-
-            Commande charger;
+    public void charger(String num) throws IllegalArgumentException {
+        try{
             switch (num) {
                 case "1":
-                    charger = new Commande("CHARGER", "Automne");
+                    this.charger = new Commande("CHARGER", "Automne");
 
                     break;
                 case "2":
-                    charger = new Commande("CHARGER", "Hiver");
+                    this.charger = new Commande("CHARGER", "Hiver");
                     break;
                 case "3":
-                    charger = new Commande("CHARGER", "Ete");
+                    this.charger = new Commande("CHARGER", "Ete");
                     break;
                 default:
                     throw new IllegalArgumentException("Veuillez entrer un nombre entre 1 et 3. Merci.");
 
             }
-            System.out.println("Les cours offerts pendant la session d'"+charger.getSession()+" sont:");
-            this.objectOutputStream.writeObject(charger);
-            this.objectOutputStream.flush();
-        }
 
+            this.objectOutputStream.writeObject(charger);
+        System.out.println("Les cours offerts pendant la session d'"+charger.getSession()+" sont:");
+            this.objectOutputStream.flush();
+        }catch(IOException e){
+            System.out.println("Erreur lors du chargement des cours.");
+            e.printStackTrace();
+        }
+    }
 
     public void coursOfferts() throws IOException, ClassNotFoundException {
-        System.out.println("hello");
-        ArrayList<Course> liste_cours =(ArrayList<Course>) this.objectInputStream.readObject();
+        this.liste_cours =(ArrayList<Course>) this.objectInputStream.readObject();
         for(int i=0; i<liste_cours.size(); i++){
             System.out.println((i+1)+". "+liste_cours.get(i).getCode()+"\t"+liste_cours.get(i).getName());
         }
 
-        //this.objectInputStream.close();
     }
 
     public void choixProcedure(String num) throws IOException, ClassNotFoundException {
@@ -114,27 +119,58 @@ public class Client {
         }
     }
 
-    public void inscription(){
-        Scanner scanner = new Scanner(System.in);
+    public void inscription() {
+        try {
+            System.out.print("Veuillez saisir votre prénom: ");
+            Scanner scanner = new Scanner(System.in);
+            String prenom = scanner.nextLine();
+            System.out.print("Veuillez saisir votre nom: ");
+            String nom = scanner.nextLine();
+            System.out.print("Veuillez saisir votre email: ");
+            String email = scanner.nextLine();
+            System.out.print("Veuillez saisir votre matricule: ");
+            String matricule = choixMatricule();
+            Course mon_cours = cours();
+            inscrire = new Commande("INSCRIRE", "");
+            this.objectOutputStream.writeObject(inscrire);
+            this.objectOutputStream.flush();
+            RegistrationForm form = new RegistrationForm(prenom, nom, email, matricule, mon_cours);
+            System.out.println("\nFélicitation! Inscription réussie de " + prenom + " " + nom + " au cours " + mon_cours.getCode() + ".");
+            this.objectOutputStream.writeObject(form);
+            this.objectOutputStream.flush();
+        }catch(Exception e){
+            System.out.println("Erreur dans l'inscription. Veuillez recommencer.");
+            e.printStackTrace();
+            inscription();
+        }
 
-        System.out.print("Veuillez saisir votre prénom: ");
-        String prenom = scanner.nextLine();
-
-        System.out.print("Veuillez saisir votre nom: ");
-        String nom = scanner.nextLine();
-
-        System.out.print("Veuillez saisir votre email: ");
-        String email = scanner.nextLine();
-
-        System.out.print("Veuillez saisir votre matricule: ");
-        String matricule = scanner.nextLine();
+    }
+    public Course cours() {
 
         System.out.print("Veuillez saisir le code du cours: ");
+        Scanner scanner = new Scanner(System.in);
         String code = scanner.nextLine();
+        for (int i = 0; i <= this.liste_cours.size(); i++) {
+            if (this.liste_cours.get(i).getCode().equals(code)) {
+                return liste_cours.get(i);
+            }
+            if (i == this.liste_cours.size()-1) {
+                System.out.println("Ce cours n'existe pas, ou bien n'est pas offert durant cette session.");
+                return cours();
+            }
+        }
+        return null;
+    }
 
-
-
-
+    public String choixMatricule(){
+        Scanner scanner = new Scanner(System.in);
+        String matricule = scanner.nextLine();
+        if (matricule.length()!=8){
+            System.out.println("Veuillez entrer un matricule à 8 chiffres.");
+            return choixMatricule();
+        }else{
+            return matricule;
+        }
     }
 }
 

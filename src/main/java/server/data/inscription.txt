@@ -1,1 +1,3 @@
 Automne	IFT2255	12345678	Michalis	Famelis	mfamelis@iro.umontreal.ca
+Automne	IFT1227	123dawg	Doug	Doggie	dog@email.com
+Ete	IFT2256	88888888	Hingle	McCringleberry	Hingle.McCringleberry@umontreal.ca
