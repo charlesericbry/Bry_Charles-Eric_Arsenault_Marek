@@ -16,7 +16,6 @@ public class Client {
     private Socket client;
     private ObjectInputStream objectInputStream;
     private ObjectOutputStream objectOutputStream;
-    private Commande commande;
     private static String message="Veuillez choisir la session pour laquelle vous voulez consulter la liste de cours:\n 1. Automne\n 2. Hiver\n 3. Été\n>Choix:";
     private Commande charger;
     private Commande inscrire;

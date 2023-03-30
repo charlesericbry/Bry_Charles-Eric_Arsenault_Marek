@@ -1,21 +1,25 @@
 package client.InterfaceGraphique;
 
 import javafx.application.Application;
+import javafx.collections.ObservableList;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
+import server.models.Course;
+
 
 public class Vue extends Application {
-    public static void main(String[] args) {
-        Vue.launch(args);
-    }
-
+    //public static void main(String[] args) {
+       // Vue.launch(args);
+   // }
+    private Controleur controleur;
     /**
      *
      * @param primaryStage
@@ -46,11 +50,13 @@ public class Vue extends Application {
                 tableCours.setPrefHeight(499);
 
                 //table qui contient les cours.
-                TableView<String> table = new TableView<>();
+                TableView<Course> table = new TableView<>();
                 table.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
                 table.setMaxWidth(350);
-                TableColumn<String, String> code = new TableColumn<>("Code");
-                TableColumn<String, String> cours = new TableColumn<>("Cours");
+                TableColumn<Course, String> code = new TableColumn<>("Code");
+                code.setCellValueFactory(new PropertyValueFactory<>("Code"));
+                TableColumn<Course, String> cours = new TableColumn<>("Cours");
+                cours.setCellValueFactory(new PropertyValueFactory<>("Cours"));
                 table.getColumns().addAll(code, cours);
                 tableCours.getChildren().add(table);
 
@@ -65,13 +71,29 @@ public class Vue extends Application {
         Charger.setPrefHeight(120);
             //Choix de session
             ComboBox<String> session = new ComboBox<>();
-            session.getItems().addAll("Automne", "Hiver", "Été");
+            session.getItems().addAll("Automne", "Hiver", "Ete");
             session.setPrefSize(120, 30);
             Charger.getChildren().add(session);
+
             //Bouton pour charger la session
             Button boutonCharger = new Button("Charger");
             boutonCharger.setPrefSize(120,30);
             Charger.getChildren().add(boutonCharger);
+            boutonCharger.setOnAction((event) -> {
+
+                System.out.println(session.getValue());
+                //controleur.charger(session.getValue());
+
+                //ObservableList<Course> listeCours = controleur.charger(session.getValue());
+
+                //for (int i = 0;i<listeCours.size();i++){
+
+                //}
+
+                table.setItems(controleur.charger(session.getValue()));
+
+
+            });
 
         Liste_de_cours.getChildren().add(Charger);
 
@@ -123,4 +145,5 @@ public class Vue extends Application {
         primaryStage.setScene(scene);
         primaryStage.show();
     }
+
 }
