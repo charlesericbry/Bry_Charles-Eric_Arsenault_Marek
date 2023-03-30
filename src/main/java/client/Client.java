@@ -21,13 +21,14 @@ public class Client {
     private Commande charger;
     private Commande inscrire;
     private ArrayList<Course> liste_cours;
-    public Client(int port) throws IOException {
-        this.client = new Socket("127.0.0.1", port);
-    }
+
 
     /**
      * Initialise le client, tourne en continu pour envoyer les nouvelles commandes
      */
+    public Client(int port) throws IOException {
+        this.client = new Socket("127.0.0.1", port);
+    }
 
     public void run(){
         System.out.println("Connecté au serveur!");
