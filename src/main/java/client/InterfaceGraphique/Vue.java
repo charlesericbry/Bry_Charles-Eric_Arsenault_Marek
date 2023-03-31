@@ -1,5 +1,6 @@
 package client.InterfaceGraphique;
 
+import com.sun.javafx.charts.Legend;
 import javafx.application.Application;
 import javafx.collections.ObservableList;
 import javafx.geometry.Insets;
@@ -15,17 +16,24 @@ import javafx.stage.Stage;
 import server.models.Course;
 
 
-public class Vue extends Application {
-    //public static void main(String[] args) {
-       // Vue.launch(args);
-   // }
-    private Controleur controleur;
-    /**
-     *
-     * @param primaryStage
-     */
-    @Override
-    public void start(Stage primaryStage) {
+public class Vue {
+
+    public TableView<Course> table;
+    private static Controleur controleur;
+
+    private Modele modele;
+
+    private boolean chargerClic = false;
+
+
+    public Vue(){
+        creerVue();
+    }
+
+    public void creerVue() {
+        try{
+        controleur = new Controleur(modele, new Vue());
+        Stage primaryStage = new Stage();
         //Boite principale
         HBox root = new HBox();
         root.setSpacing(5);
@@ -54,9 +62,9 @@ public class Vue extends Application {
                 table.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
                 table.setMaxWidth(350);
                 TableColumn<Course, String> code = new TableColumn<>("Code");
-                code.setCellValueFactory(new PropertyValueFactory<>("Code"));
+                code.setCellValueFactory(new PropertyValueFactory<>("code"));
                 TableColumn<Course, String> cours = new TableColumn<>("Cours");
-                cours.setCellValueFactory(new PropertyValueFactory<>("Cours"));
+                cours.setCellValueFactory(new PropertyValueFactory<>("name"));
                 table.getColumns().addAll(code, cours);
                 tableCours.getChildren().add(table);
 
@@ -79,19 +87,31 @@ public class Vue extends Application {
             Button boutonCharger = new Button("Charger");
             boutonCharger.setPrefSize(120,30);
             Charger.getChildren().add(boutonCharger);
+
             boutonCharger.setOnAction((event) -> {
+                try {
 
-                System.out.println(session.getValue());
-                //controleur.charger(session.getValue());
 
-                //ObservableList<Course> listeCours = controleur.charger(session.getValue());
+                    System.out.println(session.getValue());
+                    //controleur.charger(session.getValue());
 
-                //for (int i = 0;i<listeCours.size();i++){
+                    //ObservableList<Course> listeCours = controleur.charger(session.getValue());
 
-                //}
+                    //for (int i = 0;i<listeCours.size();i++){
 
-                table.setItems(controleur.charger(session.getValue()));
+                    //}
+                    
+                    
+                    controleur.charger(session.getValue());
+                    
+                    chargerClic = true;
+                }catch(NullPointerException e){
+                    System.out.println("Veuillez choisir une session.");
+                    e.printStackTrace();
 
+                }catch(Exception e){
+
+                }
 
             });
 
@@ -122,18 +142,29 @@ public class Vue extends Application {
             titre.getChildren().addAll(new Text("Prénom"),new Text("Nom"),new Text("Email"), new Text("Matricule"));
             Inscription.getChildren().add(titre);
 
-        //Contient des TextField() pour y entrer des textes
-        VBox entrees = new VBox();
-        entrees.setSpacing(10);
-        TextField Prenom = new TextField();
-        TextField Nom = new TextField();
-        TextField Email = new TextField();
-        TextField Matricule = new TextField();
-        entrees.getChildren().addAll(Prenom,Nom,Email,Matricule);
-        Inscription.getChildren().add(entrees);
+            //Contient des TextField() pour y entrer des textes
+            VBox entrees = new VBox();
+            entrees.setSpacing(10);
+            TextField Prenom = new TextField();
+            TextField Nom = new TextField();
+            TextField Email = new TextField();
+            TextField Matricule = new TextField();
+            entrees.getChildren().addAll(Prenom,Nom,Email,Matricule);
+            Inscription.getChildren().add(entrees);
 
-        //Bouton pour envoyer le formulaire d'inscription
-        Button Envoyer= new Button("Envoyer");
+            //Bouton pour envoyer le formulaire d'inscription
+            Button Envoyer= new Button("Envoyer");
+            Envoyer.setOnAction((event) -> {
+                try {
+                    if (chargerClic) {
+                        controleur.inscrire(Prenom.getText(), Nom.getText(), Email.getText(), Matricule.getText());
+                    } else {
+                        throw new IllegalArgumentException("Veuillez choisir un cours");
+                    }
+                }catch(IllegalArgumentException e){
+                    System.out.println(e.getMessage());
+                }
+            });
 
         Formulaire_Inscription.getChildren().addAll(Inscription,Envoyer);
 
@@ -144,6 +175,9 @@ public class Vue extends Application {
         Scene scene = new Scene(root);
         primaryStage.setScene(scene);
         primaryStage.show();
+    } catch (Exception e) {
+        e.printStackTrace();
+    }
     }
 
 }

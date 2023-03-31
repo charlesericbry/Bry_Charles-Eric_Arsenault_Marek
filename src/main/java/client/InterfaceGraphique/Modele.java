@@ -14,30 +14,23 @@ import server.models.RegistrationForm;
 
 public class Modele {
 
+    private int nb;
     private Socket client;
     private ObjectInputStream objectInputStream;
     private ObjectOutputStream objectOutputStream;
     private Commande charger;
     private Commande inscrire;
+    private Commande test;
     private ArrayList<Course> liste_cours;
+
 
     /**
      * Initialise le client, tourne en continu pour envoyer les nouvelles commandes
      */
     public Modele(int port) throws IOException {
         this.client = new Socket("127.0.0.1", port);
-    }
-
-    public void run(){
-        while(true) {
-            try {
-                String session = null;
-                ArrayList<Course> coursOfferts = charger(session);
-                inscrire();
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        }
+        objectOutputStream = new ObjectOutputStream(client.getOutputStream());
+        objectInputStream = new ObjectInputStream(client.getInputStream());
 
     }
 
