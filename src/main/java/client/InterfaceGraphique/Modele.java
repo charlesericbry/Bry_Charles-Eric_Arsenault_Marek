@@ -62,7 +62,7 @@ public class Modele {
 
         return null;
     }
-    public ArrayList<Course> coursOfferts() throws IOException, ClassNotFoundException {
+    private ArrayList<Course> coursOfferts() throws IOException, ClassNotFoundException {
         this.liste_cours =(ArrayList<Course>) this.objectInputStream.readObject();
         return this.liste_cours;
 
@@ -70,24 +70,55 @@ public class Modele {
 
     public void inscription(String prenom, String nom,String email,
                             String matricule,Course coursSelectionne) throws Exception {
-        choixInfo(email,matricule);
+        choixInfo(prenom,nom,email,matricule);
         Course mon_cours = coursSelectionne;
         inscrire = new Commande("INSCRIRE", "");
         this.objectOutputStream.writeObject(inscrire);
         this.objectOutputStream.flush();
         RegistrationForm form = new RegistrationForm(prenom, nom, email, matricule, mon_cours);
-        System.out.println("\nFélicitation! Inscription réussie de " + prenom + " " + nom + " au cours " + mon_cours.getCode() + ".");
+
         this.objectOutputStream.writeObject(form);
         this.objectOutputStream.flush();
     }
 
-    public void choixInfo(String email,String matricule){
+    private void choixInfo(String prenom, String nom,String email,String matricule){
         int i = -1;
-        if (email.indexOf( "@umontreal.ca" ) == i  ){
-            throw new IllegalArgumentException("Veuillez entrer un email valide.");
+        int indiceErreur = 0;
+        String messageErreur = "";
+
+        if (prenom.length()==0){
+            messageErreur+="Veuillez entrer un prénom valide.\n";
+            indiceErreur+=1;
+
         }
-        if (matricule.length()!=8){
-            throw new IllegalArgumentException("Veuillez entrer un matricule à 8 chiffres.");
-    }
+        if (nom.length()==0){
+            messageErreur+="Veuillez entrer un nom valide.\n";
+            indiceErreur+=1;
+        }
+        if (email.length()>=3){
+            String substring = email.substring(1, email.length() - 1);
+            if (substring.indexOf("@") == i){
+                messageErreur+="Veuillez entrer un email valide.\n";
+                indiceErreur+=1;
+            }
+        }else{
+            messageErreur+="Veuillez entrer un email valide.\n";
+            indiceErreur+=1;
+        }
+        boolean estNombre = true;
+        for (int j = 0; j < matricule.length(); j++) {
+            if (!Character.isDigit(matricule.charAt(j))) {
+                estNombre = false;
+                break;
+            }
+        }
+        if (matricule.length()!=8 || !estNombre){
+            messageErreur+="Veuillez entrer un matricule à 8 chiffres.\n";
+            indiceErreur+=1;
+
+        }
+        if (indiceErreur > 0){
+            throw new IllegalArgumentException(messageErreur);
+        }
     }
 }

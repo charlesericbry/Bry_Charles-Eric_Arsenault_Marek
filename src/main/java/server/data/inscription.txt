@@ -4,3 +4,17 @@ Ete	IFT2256	88888888	Hingle	McCringleberry	Hingle.McCringleberry@umontreal.ca
 Automne	Architecture_des_ordinateurs	11111111	michel	urgent	jeanmichelurgent@umontreal.ca
 Ete	Base_de_donnees	23232323	John	Deere	demandeajohnyvateldire@umontreal.ca
 Ete	IFT2256	11111111	Chris	Hemsworth	thor.asgard@umontreal.ca
+Hiver	IFT2125	12345555	drtgersgr	swergsgsrg	srg.rgrsg@sgfs.gfs
+Automne	IFT2255	11111111	Gean	Dupays	cestatontour@gmail.com
+Automne	IFT1015	12332112	Beezertwelves	Washingbeard	cleanbeard@umontreal.ca
+Hiver	IFT2125	12345666	Wario	.	itsame@amario.com
+Hiver	IFT2125	22222333	François	Major	fm@umontreal.ca
+Automne	IFT1015	87654321	John	Cena	bingchilling@com.gmail
+Automne	IFT2255	10000000	ned	stark	north.remembers@westeros.com
+Ete	IFT2256	00000000	oui	oui	oui@yahoo.com
+Hiver	IFT2125	55555555	vin	diesel	vindesen@gmail.com
+Ete	IFT2256	88888888	Marc	Dupré	madu@lavoix.ca
+Automne	IFT2255	65656565	Will	Smith	yahoo@slap.com
+Hiver	IFT1025	12121212	Jean	Dujardin	bricedenice@yahoo.fr
+Automne	IFT1227	87878787	Igor	D'Osgor	coolguy@hotmail.com
+Automne	IFT1227	18273645	Michael	Jackson	billiejean@gmail.com
