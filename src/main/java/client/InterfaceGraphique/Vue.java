@@ -32,7 +32,7 @@ public class Vue {
 
     public void creerVue() {
         try{
-        controleur = new Controleur(modele, new Vue());
+        controleur = new Controleur(modele, new TableView<>());
         Stage primaryStage = new Stage();
         //Boite principale
         HBox root = new HBox();

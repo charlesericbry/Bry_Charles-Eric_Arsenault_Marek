@@ -2,6 +2,7 @@ package client.InterfaceGraphique;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.scene.control.TableView;
 import server.models.Course;
 
 import java.util.ArrayList;
@@ -9,9 +10,10 @@ import java.util.ArrayList;
 public class Controleur{
     private Modele modele;
     private Vue vue;
+    public TableView<Course> table;
 
-    public Controleur(Modele m,Vue v){
-            this.vue = v;
+    public Controleur(Modele m,TableView<Course> table){
+            this.table = table;
             this.modele = m;
     }
 
