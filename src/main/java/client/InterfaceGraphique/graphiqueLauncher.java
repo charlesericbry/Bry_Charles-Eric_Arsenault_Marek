@@ -8,9 +8,10 @@ public class graphiqueLauncher extends Application {
     public final static int PORT = 1337;
     public static void main(String[] args) {
         try {
-            Modele modele = new Modele(PORT);
+
+
             launch(args);
-            //modele.run();
+
         }catch (Exception e) {
             e.printStackTrace();
         }
@@ -18,6 +19,6 @@ public class graphiqueLauncher extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception {
-        new Vue();
+        new Vue(PORT);
     }
 }

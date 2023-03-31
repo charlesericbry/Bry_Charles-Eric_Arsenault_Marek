@@ -1,4 +1,6 @@
 Automne	IFT2255	12345678	Michalis	Famelis	mfamelis@iro.umontreal.ca
 Automne	IFT1227	123dawg	Doug	Doggie	dog@email.com
 Ete	IFT2256	88888888	Hingle	McCringleberry	Hingle.McCringleberry@umontreal.ca
-Hiver	IFT1025	45678901	1	2	3
+Automne	Architecture_des_ordinateurs	11111111	michel	urgent	jeanmichelurgent@umontreal.ca
+Ete	Base_de_donnees	23232323	John	Deere	demandeajohnyvateldire@umontreal.ca
+Ete	IFT2256	11111111	Chris	Hemsworth	thor.asgard@umontreal.ca

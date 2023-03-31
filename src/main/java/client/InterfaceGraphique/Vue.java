@@ -26,13 +26,13 @@ public class Vue {
     private boolean chargerClic = false;
 
 
-    public Vue(){
-        creerVue();
+    public Vue(int port){
+        creerVue(port);
     }
 
-    public void creerVue() {
+    public void creerVue(int port) {
         try{
-        controleur = new Controleur(modele, new TableView<>());
+
         Stage primaryStage = new Stage();
         //Boite principale
         HBox root = new HBox();
@@ -59,6 +59,7 @@ public class Vue {
 
                 //table qui contient les cours.
                 TableView<Course> table = new TableView<>();
+                controleur = new Controleur(new Modele(port), table);
                 table.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
                 table.setMaxWidth(350);
                 TableColumn<Course, String> code = new TableColumn<>("Code");
@@ -91,20 +92,8 @@ public class Vue {
             boutonCharger.setOnAction((event) -> {
                 try {
 
-
-                    System.out.println(session.getValue());
-                    //controleur.charger(session.getValue());
-
-                    //ObservableList<Course> listeCours = controleur.charger(session.getValue());
-
-                    //for (int i = 0;i<listeCours.size();i++){
-
-                    //}
-                    
-                    
                     controleur.charger(session.getValue());
-                    
-                    chargerClic = true;
+
                 }catch(NullPointerException e){
                     System.out.println("Veuillez choisir une session.");
                     e.printStackTrace();
@@ -113,6 +102,14 @@ public class Vue {
 
                 }
 
+            });
+            table.setOnMouseClicked(event -> {
+                if (event.getClickCount() >= 1) {
+                    String selectedItem = table.getSelectionModel().getSelectedItem().getCode();
+                    chargerClic = true;
+                    System.out.println(selectedItem);
+                    // do something with the selected item
+                }
             });
 
         Liste_de_cours.getChildren().add(Charger);
@@ -157,13 +154,19 @@ public class Vue {
             Envoyer.setOnAction((event) -> {
                 try {
                     if (chargerClic) {
-                        controleur.inscrire(Prenom.getText(), Nom.getText(), Email.getText(), Matricule.getText());
+                        controleur.inscrire(Prenom.getText(), Nom.getText(), Email.getText(),
+                                Matricule.getText(),table.getSelectionModel().getSelectedItem());
+
                     } else {
                         throw new IllegalArgumentException("Veuillez choisir un cours");
                     }
                 }catch(IllegalArgumentException e){
                     System.out.println(e.getMessage());
+                }catch(Exception e) {
+                    System.out.println(e.getMessage());
+                    e.printStackTrace();
                 }
+
             });
 
         Formulaire_Inscription.getChildren().addAll(Inscription,Envoyer);
