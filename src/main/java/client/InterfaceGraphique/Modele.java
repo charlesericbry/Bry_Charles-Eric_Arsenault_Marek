@@ -12,16 +12,16 @@ import java.util.Scanner;
 import server.models.Course;
 import server.models.RegistrationForm;
 
-
+/**
+ * Classe modèle, qui traite les données reçues du contrôleur.
+ */
 public class Modele {
 
-    private int nb;
     private Socket client;
     private ObjectInputStream objectInputStream;
     private ObjectOutputStream objectOutputStream;
     private Commande charger;
     private Commande inscrire;
-    private Commande test;
     private ArrayList<Course> liste_cours;
 
 
@@ -36,6 +36,12 @@ public class Modele {
 
     }
 
+    /**
+     * Communique avec le serveur pour obtenir une liste de cours selon une session choisie
+     *
+     * @param session Session choisie
+     * @return retourne une liste avec les cours pour une session donnée
+     */
     public ArrayList<Course> charger(String session) {
         try{
             switch (session) {
@@ -68,6 +74,15 @@ public class Modele {
 
     }
 
+    /**
+     * Gère les informations d'inscription reçues et décide de leur validité.
+     * @param prenom
+     * @param nom
+     * @param email
+     * @param matricule
+     * @param coursSelectionne
+     * @throws Exception
+     */
     public void inscription(String prenom, String nom,String email,
                             String matricule,Course coursSelectionne) throws Exception {
         choixInfo(prenom,nom,email,matricule);

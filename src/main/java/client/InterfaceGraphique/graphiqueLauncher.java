@@ -28,6 +28,11 @@ public class graphiqueLauncher extends Application {
         }
     }
 
+    /**
+     *
+     * @param primaryStage Stage principal de l'interface
+     * @throws Exception Toute exception inattendue
+     */
     @Override
     public void start(Stage primaryStage) throws Exception {
         new Vue(PORT);
