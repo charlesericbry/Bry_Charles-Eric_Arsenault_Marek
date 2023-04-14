@@ -11,6 +11,7 @@ import java.net.Socket;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+
 public class Client {
 
     private Socket client;
@@ -124,12 +125,52 @@ public class Client {
             System.out.print("Veuillez saisir votre prénom: ");
             Scanner scanner = new Scanner(System.in);
             String prenom = scanner.nextLine();
+            while (prenom.length()==0) {
+                System.out.println("Veuillez entrer un prénom valide.\n");
+                scanner = new Scanner(System.in);
+                prenom = scanner.nextLine();
+            }
+
             System.out.print("Veuillez saisir votre nom: ");
             String nom = scanner.nextLine();
+            while (nom.length()==0) {
+                System.out.println("Veuillez entrer un prénom valide.\n");
+                scanner = new Scanner(System.in);
+                nom = scanner.nextLine();
+            }
             System.out.print("Veuillez saisir votre email: ");
             String email = scanner.nextLine();
+            while (email.length()<=3) {
+                System.out.println("Veuillez entrer un email valide.\n");
+                scanner = new Scanner(System.in);
+                nom = scanner.nextLine();
+            }
+            while (email.length()<=3) {
+                System.out.println("Veuillez entrer un email valide.\n");
+                scanner = new Scanner(System.in);
+                nom = scanner.nextLine();
+            }
+            String substring = email.substring(1, email.length() - 1);
+            if ((substring.indexOf("@") == -1)||(substring.indexOf("@") == 0)){
+                System.out.println("Veuillez entrer un email valide.\n");
+                scanner = new Scanner(System.in);
+                nom = scanner.nextLine();
+            }
             System.out.print("Veuillez saisir votre matricule: ");
             String matricule = choixMatricule();
+
+            boolean estNombre = true;
+            for (int j = 0; j < matricule.length(); j++) {
+                if (!Character.isDigit(matricule.charAt(j))) {
+                    estNombre = false;
+                    break;
+                }
+            }
+            while (matricule.length()!=8 || !estNombre) {
+                System.out.println("Veuillez entrer matricule valide.\n");
+                scanner = new Scanner(System.in);
+                nom = scanner.nextLine();
+            }
             Course mon_cours = cours();
             inscrire = new Commande("INSCRIRE", "");
             this.objectOutputStream.writeObject(inscrire);

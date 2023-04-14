@@ -97,7 +97,7 @@ public class Modele {
         }
         if (email.length()>=3){
             String substring = email.substring(1, email.length() - 1);
-            if (substring.indexOf("@") == i){
+            if ((substring.indexOf("@") == -1)||(substring.indexOf("@") == 0)){
                 messageErreur+="Veuillez entrer un email valide.\n";
                 indiceErreur+=1;
             }

@@ -13,26 +13,61 @@ import javafx.stage.Stage;
 import server.models.Course;
 
 
+/**
+ * La classe Vue est responsable de l'affichage graphique de l'interface utilisateur pour l'inscription aux cours.
+ */
 public class Vue {
+    /**
+     * Tableau graphique affichant les cours.
+     */
 
     public TableView<Course> table;
+    /**
+     * Contrôleur responsable de la gestion des événements utilisateur.
+     */
     private static Controleur controleur;
-
+    /**
+     * Modèle représentant les données des cours.
+     */
     private Modele modele;
-
+    /**
+     * Indique si le bouton charger a été cliqué.
+     */
     private boolean chargerClic = false;
+    /**
+     * Indique si un cours a été sélectionné.
+     */
     private boolean coursSelec = false;
-    //private Course coursChoisi;
+    /**
+     * Champ texte pour le prénom de l'étudiant.
+     */
     private TextField Prenom = new TextField();
+    /**
+     * Champ texte pour le nom de l'étudiant.
+     */
     private TextField Nom = new TextField();
+    /**
+     * Champ texte pour l'adresse courriel de l'étudiant.
+     */
     private TextField Email = new TextField();
+    /**
+     * Champ texte pour le matricule de l'étudiant.
+     */
     private TextField Matricule = new TextField();
-
+    /**
+     * Constructeur de la classe Vue.
+     *
+     * @param port le port sur lequel le client doit se connecter.
+     */
 
     public Vue(int port){
         creerVue(port);
     }
-
+    /**
+     * Crée l'interface utilisateur de l'application.
+     *
+     * @param port le port sur lequel le client doit se connecter.
+     */
     public void creerVue(int port) {
         try{
 
@@ -217,6 +252,10 @@ public class Vue {
         e.printStackTrace();
     }
     }
+    /**
+     * Cette méthode affiche une fenêtre d'erreur contenant un message d'erreur donné en paramètre
+     * @param messageErreur Le message d'erreur à afficher dans la fenêtre
+     */
     private void erreur(String messageErreur){
         Stage errorStage = new Stage();
         Label errorMessage = new Label(messageErreur);
@@ -234,7 +273,11 @@ public class Vue {
             errorStage.close();
         });
     }
-
+    /**
+     * Cette méthode applique une ombre rouge sur les champs d'entrée associés aux erreurs spécifiques passées en paramètre,
+     * comme le prénom, le nom, l'email ou le matricule
+     * @param messageErreur Le message d'erreur contenant des informations sur les champs à surligner en rouge
+     */
     private void rougeErreur(String messageErreur){
         int i = -1;
         if (messageErreur.indexOf("prénom")!=i){
@@ -244,7 +287,7 @@ public class Vue {
             Nom.setStyle("-fx-effect: dropshadow(gaussian, red, 10, 0, 0, 0);");
         }
         if (messageErreur.indexOf("email")!=i){
-            Email.setStyle("-fx-effect: dropshadow(gaussian, red, 10, 0, 0, 0);");
+            Email.setStyle("-fx-effect: dropshadow(gaussian, #ff0000, 10, 0, 0, 0);");
         }
         if (messageErreur.indexOf("matricule")!=i){
             Matricule.setStyle("-fx-effect: dropshadow(gaussian, red, 10, 0, 0, 0);");
@@ -252,6 +295,11 @@ public class Vue {
 
 
     }
+    /**
+     * Cette méthode affiche une fenêtre de succès indiquant qu'une inscription a été réussie pour un cours donné.
+     * Elle réinitialise également les champs d'entrée.
+     * @param cours Le cours pour lequel l'inscription a été réussie
+     */
     private void inscriptionReussie(Course cours){
         Stage succesStage = new Stage();
         Label messageFin = new Label("Félicitations! Inscription réussie de " + Prenom.getText() + " \n" +
