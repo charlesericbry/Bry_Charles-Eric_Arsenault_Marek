@@ -87,12 +87,10 @@ public class Server {
     public void listen() throws IOException, ClassNotFoundException {
         String line;
         if ((line = this.objectInputStream.readObject().toString()) != null) {
-
             Pair<String, String> parts = processCommandLine(line);
             String cmd = parts.getKey();
             String arg = parts.getValue();
             this.alertHandlers(cmd, arg);
-            System.out.println(line);
         }
     }
 
@@ -168,13 +166,13 @@ public class Server {
             System.out.println("Interruption lors de l'écriture ou la lecture");
         } catch (FileNotFoundException e) {
             System.err.println("Le fichier n'a pas été trouvé : " + e.getMessage());
-            e.printStackTrace();
+
         } catch (IOException e) {
             System.err.println("Erreur lors de la lecture du fichier : " + e.getMessage());
-            e.printStackTrace();
+
         } catch (Exception e) {
             System.err.println("Une erreur s'est produite : " + e.getMessage());
-            e.printStackTrace();
+
         }
     }
 
@@ -202,7 +200,7 @@ public class Server {
 
         } catch (IOException e) {
             System.err.println("Erreur lors de la lecture du fichier : " + e.getMessage());
-            e.printStackTrace();
+
 
         } catch (ClassNotFoundException e) {
             throw new RuntimeException(e);
