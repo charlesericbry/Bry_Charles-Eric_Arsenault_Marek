@@ -146,13 +146,13 @@ public class Server {
      */
     public void handleLoadCourses(String arg) {
         try {
-            FileReader courseReader = new FileReader("src/main/java/server/data/cours.txt");
-            //../../../src/main/java/server/data/cours.txt
+            FileReader courseReader = new FileReader("../../../src/main/java/server/data/cours.txt");
+            
             BufferedReader reader = new BufferedReader(courseReader);
             String line;
             ArrayList<Course> liste_cours = new ArrayList<Course>();
             while ((line = reader.readLine()) != null) {
-                String regex = "^IFT\\d{4}\t.+\\t(Hiver|Été|Automne)$";
+                String regex = "^IFT\\d{4}\t.+\\t(Hiver|Ete|Automne)$\\n?";
                 Pattern pattern = Pattern.compile(regex);
                 Matcher matcher = pattern.matcher(line);
                 if(!matcher.matches()){
@@ -201,8 +201,8 @@ public class Server {
             ObjectInputStream is = this.objectInputStream;
             RegistrationForm r = (RegistrationForm) is.readObject();
 
-            FileWriter fw = new FileWriter("src/main/java/server/data/inscription.txt", true);
-            //../../../src/main/java/server/data/inscription.txt
+            FileWriter fw = new FileWriter("../../../src/main/java/server/data/inscription.txt", true);
+
             BufferedWriter writer = new BufferedWriter(fw);
             String informations = (r.getCourse().getSession() + "\t" +
                     r.getCourse().getCode() + "\t" + r.getMatricule() + "\t" +

@@ -63,7 +63,6 @@ public class Vue {
 
     public Vue(int port){
         creerVue(port);
-        System.out.println("test");
     }
     /**
      * Crée l'interface utilisateur de l'application.
