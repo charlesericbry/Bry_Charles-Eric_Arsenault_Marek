@@ -12,7 +12,6 @@ import java.util.ArrayList;
  */
 public class Controleur{
     private Modele modele;
-    private Vue vue;
     /**
      * Table pour charger les cours
      */
@@ -30,13 +29,14 @@ public class Controleur{
     }
 
     /**
-     * Charge les cours et les inscrit dans la table.
+     * Charge les cours et les inscrit dans la table. Prend les informations de modèle sous forme d'une arrayList
+     * et les transforment en ObservableList.
      *
      * @param session Session choisie par l'interface graphique
      * @throws NullPointerException Tient en compte de l'exception où une erreur n'engendre aucune valeur, par
      * exemple lorsque le serveur ne fournit pas l'information nécessaire.
      */
-    public void charger(String session) throws NullPointerException{
+    public void charger(String session) throws NullPointerException, IllegalArgumentException{
         ArrayList<Course> tableCours = modele.charger(session);
         ObservableList<Course> tableCoursInfo =  FXCollections.observableArrayList();
             for (int i = 0;i<tableCours.size();i++){
@@ -59,8 +59,5 @@ public class Controleur{
      */
     public void inscrire(String prenom, String nom,String email,String matricule,Course coursSelectionne) throws Exception {
         modele.inscription(prenom,nom,email,matricule,coursSelectionne);
-        modele.setMessage();
     }
-
-
 }

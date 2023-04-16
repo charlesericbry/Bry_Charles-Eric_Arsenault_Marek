@@ -63,6 +63,7 @@ public class Vue {
 
     public Vue(int port){
         creerVue(port);
+        System.out.println("test");
     }
     /**
      * Crée l'interface utilisateur de l'application.
@@ -177,7 +178,8 @@ public class Vue {
 
                     }catch(NullPointerException e){
 
-                        erreur("Veuillez choisir une session.");
+                        erreur("Une erreur s'est produite, soit à cause du serveur,\n soit parce que " +
+                                "vous n'avez pas choisi de session.");
                         table.setBorder(new Border(new BorderStroke(Color.RED,
                                 BorderStrokeStyle.SOLID, CornerRadii.EMPTY, BorderWidths.DEFAULT)));
                         chargerClic = false;
@@ -249,7 +251,7 @@ public class Vue {
         primaryStage.setScene(scene);
         primaryStage.show();
     } catch (Exception e) {
-
+            System.out.println("Erreur lors du démarrage de l'interface graphique. Le serveur n'est pas connecté.");
     }
     }
     /**
@@ -266,7 +268,7 @@ public class Vue {
         boutonErreur.setPrefSize(120,30);
         layout.getChildren().add(boutonErreur);
 
-        Scene scene = new Scene(layout, 300, 200);
+        Scene scene = new Scene(layout, 400, 300);
         errorStage.setScene(scene);
         errorStage.setTitle("Error");
         errorStage.show();

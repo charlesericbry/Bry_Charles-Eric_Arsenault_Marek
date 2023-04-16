@@ -5,9 +5,9 @@ import javafx.application.Application;
 import javafx.stage.Stage;
 
 /**
- * Classede lancement de l'interface graphique.
+ * Classe de lancement de l'interface graphique.
  */
-public class graphiqueLauncher extends Application {
+public class GraphiqueLauncher extends Application {
     /**
      * Port de l'ordinateur
      */
@@ -19,8 +19,6 @@ public class graphiqueLauncher extends Application {
      */
     public static void main(String[] args) {
         try {
-
-
             launch(args);
 
         }catch (Exception e) {

@@ -48,6 +48,7 @@ public class Modele {
      */
     public ArrayList<Course> charger(String session) {
         try{
+            messageErreur = "";
             switch (session) {
                 case "Automne":
                     this.charger = new Commande("CHARGER", "Automne");
@@ -66,9 +67,7 @@ public class Modele {
             return coursOfferts();
 
         }catch(Exception e){
-            messageErreur+="Erreur lors du chargement des cours";
         }
-
         return null;
     }
     private ArrayList<Course> coursOfferts() throws IOException, ClassNotFoundException {
@@ -85,7 +84,7 @@ public class Modele {
      * @param email
      * @param matricule
      * @param coursSelectionne
-     * @throws Exception
+     * @throws Exception Champs d'entrées vides ou non-valides
      */
     public void inscription(String prenom, String nom,String email,
                             String matricule,Course coursSelectionne) throws Exception {
@@ -118,7 +117,7 @@ public class Modele {
         Pattern pattern = Pattern.compile(regex);
         Matcher matcher = pattern.matcher(email);
         if(!matcher.matches()){
-            messageErreur+="Veuillez entrer un email valide.";
+            messageErreur+="Veuillez entrer un email valide.\n";
             indiceErreur+=1;
         }
 
@@ -139,9 +138,5 @@ public class Modele {
             throw new IllegalArgumentException(messageErreur);
 
         }
-    }
-
-    public void setMessage(){
-        messageErreur = "";
     }
 }

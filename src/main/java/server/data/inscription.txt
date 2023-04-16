@@ -27,3 +27,5 @@ Ete	IFT2256	91919191	michel	2.3@	chelmi@
 Automne	IFT1015	33333333	boulls	bouillues	alez.com@com.com
 Hiver	IFT2125	22222222	8	Gingras	weertgirjg@com.com
 Automne	IFT1227	12345678	Jean Gui	j	raejan@email.com
+Automne	IFT2255	12345678	jean	nom	lala.la..@ea.ca
+Hiver	IFT1025	87654321	e	e	e@ono.com

@@ -10,6 +10,8 @@ import java.net.Socket;
 import java.nio.channels.ClosedByInterruptException;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 
 /**
@@ -150,17 +152,17 @@ public class Server {
             String line;
             ArrayList<Course> liste_cours = new ArrayList<Course>();
             while ((line = reader.readLine()) != null) {
+                String regex = "^IFT\\d{4}\t.+\\t(Hiver|Été|Automne)$";
+                Pattern pattern = Pattern.compile(regex);
+                Matcher matcher = pattern.matcher(line);
+                if(!matcher.matches()){
+                    throw new IllegalArgumentException("Mauvais format du fichier");
+                }
+
                 String[] parts = line.split("\t");
                 String code_du_cours = parts[0];
                 String nom_du_cours = parts[1];
                 String session = parts[2];
-                //System.out.println(parts.length);
-                //if(parts.length!=3){
-                //    throw new IllegalArgumentException("Fichier cours.txt corrompue");
-                //
-                //if(code_du_cours.substring(0,2)!="IFT"){
-                //    throw new IllegalArgumentException("Fichier cours.txt corrompue");
-                //}
                 if (session.equals(arg)) {
                     Course cours = new Course(nom_du_cours, code_du_cours, session);
                     liste_cours.add(cours);
@@ -172,7 +174,7 @@ public class Server {
             listen();
         }catch (IllegalArgumentException e) {
 
-                System.err.println("Mauvais format :" + e.getMessage());
+                System.err.println(e.getMessage());
 
             }
           catch (ClosedByInterruptException e) {
