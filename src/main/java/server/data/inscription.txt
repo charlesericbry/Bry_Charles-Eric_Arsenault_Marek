@@ -23,3 +23,7 @@ Automne	IFT1227	12345677	Wigglesworth	Mcsnugglebunny	neg@ative.com
 Hiver	IFT1025	69696969	beuab	bouche	erytreyt@ergerg
 Automne	IFT1015	12345678	zoombadouwow	pifpif	foisjhswog@aofhnaf.com
 Automne	IFT1015	12345678	ou	si	sa@zou
+Ete	IFT2256	91919191	michel	2.3@	chelmi@
+Automne	IFT1015	33333333	boulls	bouillues	alez.com@com.com
+Hiver	IFT2125	22222222	8	Gingras	weertgirjg@com.com
+Automne	IFT1227	12345678	Jean Gui	j	raejan@email.com

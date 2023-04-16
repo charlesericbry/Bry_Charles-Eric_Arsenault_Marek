@@ -73,7 +73,7 @@ public class Server {
                 disconnect();
                 System.out.println("Client déconnecté!");
             } catch (Exception e) {
-                System.out.println("Erreur lors de la connexion avec le client.");
+                e.printStackTrace();
             }
         }
     }

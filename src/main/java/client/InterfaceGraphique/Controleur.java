@@ -59,7 +59,7 @@ public class Controleur{
      */
     public void inscrire(String prenom, String nom,String email,String matricule,Course coursSelectionne) throws Exception {
         modele.inscription(prenom,nom,email,matricule,coursSelectionne);
-
+        modele.setMessage();
     }
 
 

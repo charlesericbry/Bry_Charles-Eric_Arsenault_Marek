@@ -11,6 +11,8 @@ import java.net.ConnectException;
 import java.net.Socket;
 import java.util.ArrayList;
 import java.util.Scanner;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 
 public class Client {
@@ -138,40 +140,8 @@ public class Client {
                 scanner = new Scanner(System.in);
                 nom = scanner.nextLine();
             }
-            System.out.print("Veuillez saisir votre email: ");
-            String email = scanner.nextLine();
-            while (email.length()<=3) {
-                System.out.println("Veuillez entrer un email valide.\n");
-                scanner = new Scanner(System.in);
-                nom = scanner.nextLine();
-            }
-            while (email.length()<5) {
-                System.out.println("Veuillez entrer un email valide.\n");
-                scanner = new Scanner(System.in);
-                nom = scanner.nextLine();
-            }
-            String substring = email.substring(1, email.length() - 1);
-            if (( substring.indexOf(".") == -1||substring.indexOf("@") == -1)||
-                    substring.indexOf(".")<substring.indexOf("@")+1 ||(substring.indexOf("@") ==0)){
-                System.out.println("Veuillez entrer un email valide.\n");
-                scanner = new Scanner(System.in);
-                nom = scanner.nextLine();
-            }
-            System.out.print("Veuillez saisir votre matricule: ");
+            String email = emailValide();
             String matricule = choixMatricule();
-
-            boolean estNombre = true;
-            for (int j = 0; j < matricule.length(); j++) {
-                if (!Character.isDigit(matricule.charAt(j))) {
-                    estNombre = false;
-                    break;
-                }
-            }
-            while (matricule.length()!=8 || !estNombre) {
-                System.out.println("Veuillez entrer matricule valide.\n");
-                scanner = new Scanner(System.in);
-                nom = scanner.nextLine();
-            }
             Course mon_cours = cours();
             inscrire = new Commande("INSCRIRE", "");
             this.objectOutputStream.writeObject(inscrire);
@@ -203,10 +173,33 @@ public class Client {
         return null;
     }
 
+    private String emailValide(){
+        System.out.print("Veuillez saisir votre email: ");
+        Scanner scanner = new Scanner(System.in);
+        String email = scanner.nextLine();
+        String regex = "^[\\w-_.+]*[\\w-_.]@[\\w]+([\\w-.]+[\\w-])?\\.\\w{2,}$";
+        Pattern pattern = Pattern.compile(regex);
+        Matcher matcher = pattern.matcher(email);
+        if(matcher.matches()){
+            return email;
+        }else{
+            System.out.println("Veuillez entrer un email valide.");
+            return emailValide();
+        }
+    }
+
     private String choixMatricule(){
+        System.out.print("Veuillez saisir votre matricule: ");
         Scanner scanner = new Scanner(System.in);
         String matricule = scanner.nextLine();
-        if (matricule.length()!=8){
+        boolean estNombre = true;
+        for (int j = 0; j < matricule.length(); j++) {
+            if (!Character.isDigit(matricule.charAt(j))) {
+                estNombre = false;
+                break;
+            }
+        }
+        if (matricule.length()!=8||!estNombre){
             System.out.println("Veuillez entrer un matricule à 8 chiffres.");
             return choixMatricule();
         }else{

@@ -7,6 +7,9 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
 import java.util.ArrayList;
+import java.util.Scanner;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 
 import server.models.Course;
@@ -98,7 +101,7 @@ public class Modele {
     }
 
     private void choixInfo(String prenom, String nom,String email,String matricule){
-
+        messageErreur="";
         int indiceErreur = 0;
 
 
@@ -111,17 +114,14 @@ public class Modele {
             messageErreur+="Veuillez entrer un nom valide.\n";
             indiceErreur+=1;
         }
-        if (email.length()>=5){
-            String substring = email.substring(0, email.length() - 1);
-            if (( substring.indexOf(".") == -1||substring.indexOf("@") == -1)||
-                    substring.indexOf(".")<substring.indexOf("@")+1 ||(substring.indexOf("@") ==0)){
-                messageErreur+="Veuillez entrer un email valide.\n";
-                indiceErreur+=1;
-            }
-        }else{
-            messageErreur+="Veuillez entrer un email valide.\n";
+        String regex = "^[\\w-_.+]*[\\w-_.]@[\\w]+([\\w-.]+[\\w-])?\\.\\w{2,}$";
+        Pattern pattern = Pattern.compile(regex);
+        Matcher matcher = pattern.matcher(email);
+        if(!matcher.matches()){
+            messageErreur+="Veuillez entrer un email valide.";
             indiceErreur+=1;
         }
+
         boolean estNombre = true;
         for (int j = 0; j < matricule.length(); j++) {
             if (!Character.isDigit(matricule.charAt(j))) {
@@ -135,7 +135,13 @@ public class Modele {
 
         }
         if (indiceErreur > 0){
+
             throw new IllegalArgumentException(messageErreur);
+
         }
+    }
+
+    public void setMessage(){
+        messageErreur = "";
     }
 }
