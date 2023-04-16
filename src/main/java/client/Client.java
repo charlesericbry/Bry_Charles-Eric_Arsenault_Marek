@@ -61,7 +61,7 @@ public class Client {
             System.out.println("2. Inscription à un cours");
             System.out.println(">Choix:");
         } catch (IllegalArgumentException e) {
-            System.out.println(e);
+            System.out.println(e.getMessage());
             commander();
 
         }
@@ -70,7 +70,7 @@ public class Client {
         try {
             choixProcedure(num2);
         } catch (IllegalArgumentException e) {
-            System.out.println(e);
+            System.out.println(e.getMessage());
 
         }
     }

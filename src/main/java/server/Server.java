@@ -154,12 +154,13 @@ public class Server {
                 String code_du_cours = parts[0];
                 String nom_du_cours = parts[1];
                 String session = parts[2];
-                if(parts.length!=3){
-                    throw new IllegalArgumentException("Fichier cours.txt corrompue");
-                }
-                if(code_du_cours.substring(0,2)!="IFT"){
-                    throw new IllegalArgumentException("Fichier cours.txt corrompue");
-                }
+                //System.out.println(parts.length);
+                //if(parts.length!=3){
+                //    throw new IllegalArgumentException("Fichier cours.txt corrompue");
+                //
+                //if(code_du_cours.substring(0,2)!="IFT"){
+                //    throw new IllegalArgumentException("Fichier cours.txt corrompue");
+                //}
                 if (session.equals(arg)) {
                     Course cours = new Course(nom_du_cours, code_du_cours, session);
                     liste_cours.add(cours);

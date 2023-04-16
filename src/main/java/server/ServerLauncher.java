@@ -7,7 +7,7 @@ public class ServerLauncher {
     /**
      * Port utilisé pour le serveur
      */
-    public final static int PORT = 1337;
+    public final static int PORT = 1441;
     /**
      * Démarre le serveur, exécute les commandes du client.
      *
@@ -20,7 +20,7 @@ public class ServerLauncher {
             System.out.println("Server is running...");
             server.run();
         } catch (Exception e) {
-            System.out.println("Une erreur s'est produite.");
+            e.printStackTrace();
         }
     }
 }
