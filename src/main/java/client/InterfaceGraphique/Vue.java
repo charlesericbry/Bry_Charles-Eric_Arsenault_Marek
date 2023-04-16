@@ -228,7 +228,7 @@ public class Vue {
                             throw new IllegalArgumentException("Veuillez choisir une session.");
 
                         }
-                    }catch(Exception e){
+                    }catch(IllegalArgumentException e){
                         erreur(e.getMessage());
                     }
                 });
@@ -249,7 +249,7 @@ public class Vue {
         primaryStage.setScene(scene);
         primaryStage.show();
     } catch (Exception e) {
-        e.printStackTrace();
+
     }
     }
     /**

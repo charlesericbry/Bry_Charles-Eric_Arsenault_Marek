@@ -71,7 +71,8 @@ public class Client {
             choixProcedure(num2);
         } catch (IllegalArgumentException e) {
             System.out.println(e.getMessage());
-
+            num2 = scanner.nextLine();
+            choixProcedure(num2);
         }
     }
 
@@ -101,7 +102,7 @@ public class Client {
         }
     }
 
-    private void coursOfferts() throws IOException, ClassNotFoundException {
+    private void coursOfferts() throws IOException, ClassNotFoundException, EOFException {
         this.liste_cours =(ArrayList<Course>) this.objectInputStream.readObject();
         for(int i=0; i<liste_cours.size(); i++){
             System.out.println((i+1)+". "+liste_cours.get(i).getCode()+"\t"+liste_cours.get(i).getName());
@@ -144,13 +145,14 @@ public class Client {
                 scanner = new Scanner(System.in);
                 nom = scanner.nextLine();
             }
-            while (email.length()<=3) {
+            while (email.length()<5) {
                 System.out.println("Veuillez entrer un email valide.\n");
                 scanner = new Scanner(System.in);
                 nom = scanner.nextLine();
             }
             String substring = email.substring(1, email.length() - 1);
-            if ((substring.indexOf("@") == -1)||(substring.indexOf("@") == 0)){
+            if (( substring.indexOf(".") == -1||substring.indexOf("@") == -1)||
+                    substring.indexOf(".")<substring.indexOf("@")+1 ||(substring.indexOf("@") ==0)){
                 System.out.println("Veuillez entrer un email valide.\n");
                 scanner = new Scanner(System.in);
                 nom = scanner.nextLine();
@@ -184,7 +186,7 @@ public class Client {
         }
 
     }
-    public Course cours() {
+    private Course cours() {
 
         System.out.print("Veuillez saisir le code du cours: ");
         Scanner scanner = new Scanner(System.in);
@@ -201,7 +203,7 @@ public class Client {
         return null;
     }
 
-    public String choixMatricule(){
+    private String choixMatricule(){
         Scanner scanner = new Scanner(System.in);
         String matricule = scanner.nextLine();
         if (matricule.length()!=8){
