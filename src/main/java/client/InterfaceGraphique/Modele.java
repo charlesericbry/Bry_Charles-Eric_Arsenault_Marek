@@ -7,7 +7,7 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
 import java.util.ArrayList;
-import java.util.Scanner;
+
 
 import server.models.Course;
 import server.models.RegistrationForm;
@@ -23,6 +23,7 @@ public class Modele {
     private Commande charger;
     private Commande inscrire;
     private ArrayList<Course> liste_cours;
+    private String messageErreur = "";
 
 
     /**
@@ -62,8 +63,7 @@ public class Modele {
             return coursOfferts();
 
         }catch(Exception e){
-            System.out.println("Erreur lors du chargement des cours.");
-            e.printStackTrace();
+            messageErreur+="Erreur lors du chargement des cours";
         }
 
         return null;
@@ -76,6 +76,7 @@ public class Modele {
 
     /**
      * Gère les informations d'inscription reçues et décide de leur validité.
+     *
      * @param prenom
      * @param nom
      * @param email
@@ -97,9 +98,9 @@ public class Modele {
     }
 
     private void choixInfo(String prenom, String nom,String email,String matricule){
-        int i = -1;
+
         int indiceErreur = 0;
-        String messageErreur = "";
+
 
         if (prenom.length()==0){
             messageErreur+="Veuillez entrer un prénom valide.\n";
@@ -110,9 +111,10 @@ public class Modele {
             messageErreur+="Veuillez entrer un nom valide.\n";
             indiceErreur+=1;
         }
-        if (email.length()>=3){
-            String substring = email.substring(1, email.length() - 1);
-            if ((substring.indexOf("@") == -1)||(substring.indexOf("@") == 0)){
+        if (email.length()>=5){
+            String substring = email.substring(0, email.length() - 1);
+            if (( substring.indexOf(".") == -1||substring.indexOf("@") == -1)||
+                    substring.indexOf(".")<substring.indexOf("@")+1 ||(substring.indexOf("@") ==0)){
                 messageErreur+="Veuillez entrer un email valide.\n";
                 indiceErreur+=1;
             }

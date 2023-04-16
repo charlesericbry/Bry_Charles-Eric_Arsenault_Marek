@@ -20,7 +20,7 @@ public class ServerLauncher {
             System.out.println("Server is running...");
             server.run();
         } catch (Exception e) {
-            e.printStackTrace();
+            System.out.println("Une erreur s'est produite.");
         }
     }
 }

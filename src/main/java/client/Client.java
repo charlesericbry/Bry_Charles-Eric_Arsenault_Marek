@@ -7,6 +7,7 @@ import java.io.EOFException;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.net.ConnectException;
 import java.net.Socket;
 import java.util.ArrayList;
 import java.util.Scanner;
@@ -26,7 +27,7 @@ public class Client {
     /**
      * Initialise le client, tourne en continu pour envoyer les nouvelles commandes
      */
-    public Client(int port) throws IOException {
+    public Client(int port) throws IOException, ConnectException {
         this.client = new Socket("127.0.0.1", port);
     }
 
@@ -97,11 +98,10 @@ public class Client {
             this.objectOutputStream.flush();
         }catch(IOException e){
             System.out.println("Erreur lors du chargement des cours.");
-            e.printStackTrace();
         }
     }
 
-    public void coursOfferts() throws IOException, ClassNotFoundException {
+    private void coursOfferts() throws IOException, ClassNotFoundException {
         this.liste_cours =(ArrayList<Course>) this.objectInputStream.readObject();
         for(int i=0; i<liste_cours.size(); i++){
             System.out.println((i+1)+". "+liste_cours.get(i).getCode()+"\t"+liste_cours.get(i).getName());
@@ -109,7 +109,7 @@ public class Client {
 
     }
 
-    public void choixProcedure(String num) throws IOException, ClassNotFoundException {
+    private void choixProcedure(String num) throws IOException, ClassNotFoundException {
         if (num.equals("1")){
             commander();
         } else if (num.equals("2")) {
@@ -180,7 +180,6 @@ public class Client {
             this.objectOutputStream.flush();
         }catch(Exception e){
             System.out.println("Erreur dans l'inscription. Veuillez recommencer.");
-            e.printStackTrace();
             inscription();
         }
 

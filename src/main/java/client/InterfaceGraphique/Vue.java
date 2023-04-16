@@ -54,6 +54,7 @@ public class Vue {
      * Champ texte pour le matricule de l'étudiant.
      */
     private TextField Matricule = new TextField();
+
     /**
      * Constructeur de la classe Vue.
      *
@@ -188,10 +189,9 @@ public class Vue {
 
                 table.setOnMouseClicked(event -> {
                     if (event.getClickCount() >= 1) {
-                        //String selectedItem = table.getSelectionModel().getSelectedItem().getCode();
+
                         chargerClic = true;
                         coursSelec = true;
-                        //System.out.println(selectedItem);
 
                     }
                 });
@@ -254,6 +254,7 @@ public class Vue {
     }
     /**
      * Cette méthode affiche une fenêtre d'erreur contenant un message d'erreur donné en paramètre
+     *
      * @param messageErreur Le message d'erreur à afficher dans la fenêtre
      */
     private void erreur(String messageErreur){
@@ -276,6 +277,7 @@ public class Vue {
     /**
      * Cette méthode applique une ombre rouge sur les champs d'entrée associés aux erreurs spécifiques passées en paramètre,
      * comme le prénom, le nom, l'email ou le matricule
+     *
      * @param messageErreur Le message d'erreur contenant des informations sur les champs à surligner en rouge
      */
     private void rougeErreur(String messageErreur){
@@ -298,6 +300,7 @@ public class Vue {
     /**
      * Cette méthode affiche une fenêtre de succès indiquant qu'une inscription a été réussie pour un cours donné.
      * Elle réinitialise également les champs d'entrée.
+     *
      * @param cours Le cours pour lequel l'inscription a été réussie
      */
     private void inscriptionReussie(Course cours){

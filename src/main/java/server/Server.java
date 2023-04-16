@@ -73,7 +73,7 @@ public class Server {
                 disconnect();
                 System.out.println("Client déconnecté!");
             } catch (Exception e) {
-                e.printStackTrace();
+                System.out.println("Erreur lors de la connexion avec le client.");
             }
         }
     }
@@ -145,6 +145,7 @@ public class Server {
     public void handleLoadCourses(String arg) {
         try {
             FileReader courseReader = new FileReader("src/main/java/server/data/cours.txt");
+            //../../../src/main/java/server/data/cours.txt
             BufferedReader reader = new BufferedReader(courseReader);
             String line;
             ArrayList<Course> liste_cours = new ArrayList<Course>();
@@ -153,6 +154,12 @@ public class Server {
                 String code_du_cours = parts[0];
                 String nom_du_cours = parts[1];
                 String session = parts[2];
+                if(parts.length!=3){
+                    throw new IllegalArgumentException("Fichier cours.txt corrompue");
+                }
+                if(code_du_cours.substring(0,2)!="IFT"){
+                    throw new IllegalArgumentException("Fichier cours.txt corrompue");
+                }
                 if (session.equals(arg)) {
                     Course cours = new Course(nom_du_cours, code_du_cours, session);
                     liste_cours.add(cours);
@@ -162,7 +169,12 @@ public class Server {
             this.objectOutputStream.writeObject(liste_cours);
             this.objectOutputStream.flush();
             listen();
-        } catch (ClosedByInterruptException e) {
+        }catch (IllegalArgumentException e) {
+
+                System.err.println("Mauvais format :" + e.getMessage());
+
+            }
+          catch (ClosedByInterruptException e) {
             System.out.println("Interruption lors de l'écriture ou la lecture");
         } catch (FileNotFoundException e) {
             System.err.println("Le fichier n'a pas été trouvé : " + e.getMessage());
@@ -187,6 +199,7 @@ public class Server {
             RegistrationForm r = (RegistrationForm) is.readObject();
 
             FileWriter fw = new FileWriter("src/main/java/server/data/inscription.txt", true);
+            //../../../src/main/java/server/data/inscription.txt
             BufferedWriter writer = new BufferedWriter(fw);
             String informations = (r.getCourse().getSession() + "\t" +
                     r.getCourse().getCode() + "\t" + r.getMatricule() + "\t" +
