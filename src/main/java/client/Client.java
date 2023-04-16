@@ -59,7 +59,6 @@ public class Client {
             System.out.println("1. Consulter les cours offerts pour une autre session");
             System.out.println("2. Inscription à un cours");
             System.out.println(">Choix:");
-            //objectOutputStream.close();
         } catch (IllegalArgumentException e) {
             System.out.println(e);
             commander();
