@@ -7,7 +7,7 @@ public class ServerLauncher {
     /**
      * Port utilisé pour le serveur
      */
-    public final static int PORT = 1441;
+    public final static int PORT = 1337;
     /**
      * Démarre le serveur, exécute les commandes du client.
      *
