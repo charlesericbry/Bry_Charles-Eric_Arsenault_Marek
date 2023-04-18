@@ -15,6 +15,7 @@ public class GraphiqueLauncher extends Application {
 
     /**
      * Méthode main qui lance l'interface graphique
+     *
      * @param args
      */
     public static void main(String[] args) {
